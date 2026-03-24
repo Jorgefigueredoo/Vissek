@@ -33,7 +33,7 @@ const Hero = () => {
             <img src={logoVissek} alt="Vissek" className="h-52 md:h-72 lg:h-96 mx-auto drop-shadow-[0_0_60px_hsl(210_100%_60%/0.5)] drop-shadow-[0_0_120px_hsl(240_80%_65%/0.3)]" />
           </motion.div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-[0.95] mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8x2 font-heading font-bold tracking-tight leading-[0.95] mb-6">
             <span className="text-gradient">Construindo o futuro</span>
             <br />
             <span className="text-foreground">com tecnologia</span>
