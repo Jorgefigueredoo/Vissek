@@ -19,12 +19,13 @@ const Contact = () => {
               Vamos conversar?
             </h2>
             <p className="text-lg text-muted-foreground font-body mb-10 leading-relaxed">
-              Tem um projeto em mente ou quer saber mais sobre a Vissek? Entre em contato — estamos prontos para ouvir.
+              Tem um projeto em mente ou quer saber mais sobre a Vissek? Entre
+              em contato — estamos prontos para ouvir.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="mailto:contato@vissek.com"
+                href="mailto:jorgeafiguerado@gmail.com?subject=Assunto Aqui&body=Olá Jorge, gostaria de saber sobre os serviços da Vissek."
                 className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-primary text-primary-foreground font-heading font-medium transition-all duration-300 hover:shadow-[0_0_40px_hsl(240_80%_65%/0.3)] hover:scale-105"
               >
                 <Mail className="w-5 h-5" />
@@ -32,7 +33,7 @@ const Contact = () => {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a
-                href="https://wa.me/5500000000000"
+                href="https://api.whatsapp.com/send/?phone=5581973324911&text=Olá, Vissek! Vim pelo site e gostaria de saber sobre todos os seus serviços!&type=phone_number&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-border text-muted-foreground font-heading font-medium transition-all duration-300 hover:text-foreground hover:border-muted-foreground"
