@@ -7,7 +7,6 @@ import logoVissek from "@/assets/logo_vissek.png";
 const generateStars = (count: number, widthRange: number, heightRange: number) => {
   const stars = [];
   for (let i = 0; i < count; i++) {
-    // Espalhamos as estrelas por uma área massiva (range) centrada na tela
     const x = Math.floor(Math.random() * widthRange) - widthRange / 2;
     const y = Math.floor(Math.random() * heightRange) - heightRange / 2;
     stars.push(`${x}px ${y}px #ffffff`);
@@ -46,31 +45,31 @@ const Hero = () => {
     });
   }, []);
 
-  // NOVO: Efeito para rastrear o mouse na página inteira (globalmente)
+  // Efeito para rastrear o mouse na página inteira (globalmente)
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      // Calcula a distância do mouse em relação ao centro da tela
       const moveX = (clientX / window.innerWidth - 0.5) * 40;
       const moveY = (clientY / window.innerHeight - 0.5) * 40;
       mouseX.set(moveX);
       mouseY.set(moveY);
     };
 
-    // Adiciona o listener na janela inteira
     window.addEventListener("mousemove", handleGlobalMouseMove);
-
-    // Limpeza do evento quando o componente for desmontado
-    return () => {
-      window.removeEventListener("mousemove", handleGlobalMouseMove);
-    };
+    return () => window.removeEventListener("mousemove", handleGlobalMouseMove);
   }, [mouseX, mouseY]);
 
   return (
-    // Removemos o onMouseMove daqui
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
       
-      {/* Camada das Estrelas (Background interativo cobrindo a tela inteira) */}
+      {/* 1. Animated gradient background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/10 to-transparent opacity-50 blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-[128px] animate-pulse" />
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-[128px] animate-pulse delay-700" />
+      </div>
+
+      {/* 2. Camada das Estrelas (Parallax) */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {stars.small && (
           <>
@@ -90,76 +89,124 @@ const Hero = () => {
         )}
       </div>
 
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-glow animate-glow-pulse z-0 pointer-events-none" />
-      
-      {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] z-0 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(hsl(0 0% 50%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 50%) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }}
-      />
+      {/* 3. Grid overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_80%)]" />
 
-      <div className="container relative z-10 px-6 text-center pointer-events-auto">
+      {/* CONTEÚDO PRINCIPAL */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center pointer-events-auto pb-16 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto flex flex-col items-center"
         >
+          {/* Logo com a margem exata definida anteriormente */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="-mb-8 md:-mb-12"
+            className="-mb-[58px] md:-mb-[90px] lg:-mb-[106px]"
           >
             <img src={logoVissek} alt="Vissek" className="h-52 md:h-72 lg:h-96 mx-auto drop-shadow-[0_0_60px_hsl(210_100%_60%/0.5)] drop-shadow-[0_0_120px_hsl(240_80%_65%/0.3)]" />
           </motion.div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8x2 font-heading font-bold tracking-tight leading-[0.95] mb-6">
-            <span className="text-gradient">Construindo o futuro</span>
+          {/* Título */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6 relative z-10">
+            <span className="bg-gradient-to-br from-white via-white to-gray-400 bg-clip-text text-transparent">
+              Construindo o futuro
+            </span>
             <br />
-            <span className="text-foreground">com tecnologia</span>
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500 bg-clip-text text-transparent">
+              com tecnologia.
+            </span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 font-body leading-relaxed"
+            className="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 font-body leading-relaxed"
           >
-            A Vissek desenvolve soluções tecnológicas inteligentes para transformar ideias em realidade.
+            Desenvolvemos soluções tecnológicas inteligentes para transformar ideias em realidade.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           >
-            <a
-              href="#contato"
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-primary text-primary-foreground font-heading font-medium text-base transition-all duration-300 hover:shadow-[0_0_40px_hsl(240_80%_65%/0.3)] hover:scale-105"
+            {/* Botão WhatsApp */}
+            <motion.a
+              href="https://wa.me/5581999999999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium overflow-hidden w-full sm:w-auto flex justify-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Fale conosco
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#sobre"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-border text-muted-foreground font-heading font-medium text-base transition-all duration-300 hover:text-foreground hover:border-muted-foreground"
+              <span className="relative z-10 flex items-center gap-2">
+                WhatsApp
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </motion.a>
+
+            {/* Botão E-mail */}
+            <motion.a
+              href="mailto:contato@vissek.com"
+              className="px-8 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl text-white font-medium hover:bg-white/10 transition-all w-full sm:w-auto flex justify-center"
+              whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.2)' }}
+              whileTap={{ scale: 0.95 }}
             >
-              Saiba mais
-            </a>
+              E-mail
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>
 
+      {/* Floating tech nodes */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-blue-400/50 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + (i % 2) * 40}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Scroll indicator (MOUSE BEM VISÍVEL) */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="w-7 h-12 border-2 border-white/80 rounded-full flex items-start justify-center p-2 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.2)] bg-white/5">
+          <motion.div
+            className="w-1.5 h-2.5 bg-white rounded-full"
+            animate={{ y: [0, 18, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
+
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-10 pointer-events-none" />
     </section>
   );
 };
 
-export default Hero;  
+export default Hero;
