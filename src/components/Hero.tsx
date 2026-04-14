@@ -138,7 +138,7 @@ const Hero = () => {
           >
             {/* Botão WhatsApp */}
             <motion.a
-              href="https://wa.me/5581999999999"
+              href="https://wa.me/5581973324911?text=Olá, Vissek! Vim pelo site e gostaria de saber sobre todos os seus serviços!&type=phone_number&app_absent=0"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium overflow-hidden w-full sm:w-auto flex justify-center"
@@ -154,7 +154,7 @@ const Hero = () => {
 
             {/* Botão E-mail */}
             <motion.a
-              href="mailto:contato@vissek.com"
+              href="mailto:jorgeafiguerado@gmail.com?subject=Assunto Aqui&body=Olá Jorge, gostaria de saber sobre os serviços da Vissek."
               className="px-8 py-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl text-white font-medium hover:bg-white/10 transition-all w-full sm:w-auto flex justify-center"
               whileHover={{ scale: 1.05, borderColor: 'rgba(255,255,255,0.2)' }}
               whileTap={{ scale: 0.95 }}
